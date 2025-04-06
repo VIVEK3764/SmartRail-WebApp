@@ -1,0 +1,77 @@
+.Homepage {
+  margin-top: 60px; /* match navbar height */
+}
+
+.Homepage {
+  position: relative;
+  background-image: url(../assets/bg.jpg); /* ✅ your background */
+  background-size: cover;
+  background-position: 100% center; /* start from right */
+  background-repeat: no-repeat;
+  height: 100vh;
+  width: 200vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: white;
+  padding: 0 1rem;
+  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.6);
+
+  /* 🎬 Animation */
+  animation: slideInBackground 2s ease-out forwards;
+}
+
+/* Stylish H1 */
+.title {
+  font-size: 3.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  animation: fadeInDown 1s ease-out;
+}
+
+/* Catchphrase P */
+.catchphrase {
+  font-size: 1.5rem;
+  font-weight: 400;
+  max-width: 600px;
+  line-height: 1.6;
+  animation: fadeInUp 1s ease-out;
+}
+
+/* Simple fade-in animations */
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInBackground {
+  0% {
+    background-position: 150% center;
+    opacity: 0;
+  }
+  100% {
+    background-position: center center;
+    opacity: 1;
+  }
+}
