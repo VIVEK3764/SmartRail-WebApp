@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import './App.css';
-import Home from "./Pages/Home";
-import FindTrain from "./Pages/BookTickets";
+import Home from "./pages/Home";
+import FindTrain from "./pages/findtrain";
 import { Routes, Route, useLocation } from "react-router-dom";
 import NavBar from "./Components/NavBar";
-import Trains from "./Pages/DisplayTrain";
+import Trains from "./pages/DisplayTrain";
 
 function DisplayTrainWrapper() {
   const { state } = useLocation(); // Access state passed from navigate
