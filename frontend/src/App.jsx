@@ -1,23 +1,27 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-import Home from "./pages/Home"
-import FindTrain from  "./pages/findtrain"
-import {Routes , Route} from "react-router-dom"
-import NavBar from "./components/NavBar"
-function App() {
-  const [count, setCount] = useState(0)
+import { useState } from 'react';
+import './App.css';
+import Home from "./Pages/Home";
+import FindTrain from "./Pages/BookTickets";
+import { Routes, Route, useLocation } from "react-router-dom";
+import NavBar from "./Components/NavBar";
+import Trains from "./Pages/DisplayTrain";
 
-  return (
-    <main className = "main-content">
-    <NavBar/>
-    <Routes>
-      <Route path = "/" element = {<Home/>}/>
-      <Route path = "/findtrain" element = {<FindTrain/>}/>
-    </Routes>
-  </main>
-  )
+function DisplayTrainWrapper() {
+  const { state } = useLocation(); // Access state passed from navigate
+  return <Trains mode={state?.mode} details={state?.details} />;
 }
 
-export default App
+function App() {
+  return (
+    <main className="main-content">
+      <NavBar />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/findtrain" element={<FindTrain />} />
+        <Route path="/traindetails" element={<DisplayTrainWrapper />} />
+      </Routes>
+    </main>
+  );
+}
+
+export default App;

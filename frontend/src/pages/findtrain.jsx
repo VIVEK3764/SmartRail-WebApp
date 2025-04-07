@@ -1,80 +1,49 @@
 import { useState } from 'react';
-import './findtrain.css'
-
-import axios from 'axios';
-
+import './BookTickets.css'
+import {SearchByLocation , SearchByNumber , SearchByName} from '../Components/SearchForTrain';
 function FindTrain() {
+  
+  const [searchMode , setSearchMode] = useState('')
 
-  const [From,setFrom]=useState('');
-  const [To,setTo]=useState('');
-  const [Date,setDate]=useState('');
-
-  const [results, setResults] = useState([]);
-
-
-  function SearchTrain(e) {
-    e.preventDefault(); // prevent refresh
-    // console.log(From);
-    // console.log(To);
-    // console.log(Date);
-    // alert("Tuh Hai Kon BKL");
-    //here 5000 is local host or the sever
-
-    axios.post('http://localhost:5000/search', {
-      from: From,
-      to: To,
-      date: Date
-    })
-    .then(res => {
-      setResults(res.data);  // Save results to state
-      console.log(res.data);
-    })
-
-
+  function getCurrentMode (Mode)
+  {
+    setSearchMode(Mode===searchMode ? null : Mode)
   }
-
+  
   return (
-
     <div className="find-train-page">
-    <h2>Search For Train</h2>
-    <div>
+        <h2>Search For Train</h2>
+        <div>
+            <div className = "OptionBlock">
 
-    <form className="train-form" onSubmit={SearchTrain}>
-  <div className="locationDetails">
-    <input
-      type="text"
-      placeholder="From"
-      className="search-input"
-      value={From}
-      onChange={(e) => setFrom(e.target.value)}
-    />
-    <div className="Arrow">→</div>
-    <input
-      type="text"
-      placeholder="To"
-      className="search-input"
-      value={To}
-      onChange={(e) => setTo(e.target.value)}
-    />
-  </div>
+                <button className = "Button" onClick={() => getCurrentMode('Name')}>
+                  Search By Name
+                </button>
+                {searchMode === 'Name' && <SearchByName />}
 
-  <input
-    type="text"
-    placeholder="Enter Date (dd/mm/yy)"
-    className="search-input"
-    value={Date}
-    onChange={(e) => setDate(e.target.value)}
-  />
+            </div>
 
-  <button type="submit" className="Search">Search</button>
-</form>
+            <div  className = "OptionBlock">
 
+                <button className = "Button" onClick={() => getCurrentMode('Location')}>
+                  Search By Location
+                </button>
+                {searchMode === 'Location' && <SearchByLocation />}
 
+            </div>
 
-    </div>
+            <div  className = "OptionBlock">
 
-    {/* <button type="submit" className="Search">  Search  </button> */}
-        
+                <button className = "Button" onClick={() => getCurrentMode('Number')}>
+                  Search By Number
+                </button>
+                {searchMode === 'Number' && <SearchByNumber />}
+
+            </div>
+
+        </div>
+       
+
     </div>
   );
 }
