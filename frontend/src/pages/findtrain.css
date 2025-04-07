@@ -1,73 +1,69 @@
 /* Page container */
 .find-train-page {
-  padding-top: 60px; 
-    height: 80vh;
-    width : 100vh;
-    background-color: #1c1c1c;
-    color: white;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding-top: 80px; /* if you have a fixed navbar */
-    gap: 2rem;
-    /* font-family: 'Segoe UI', sans-serif; */
-  }
-  
-  /* Heading */
-  .find-train-page h2 {
-    font-size: 2rem;
-    margin-bottom: 1rem;
-  }
-  
-  /* Container for the forms */
-  .find-train-page > div {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-    width: 100%;
-    max-width: 400px;
-  }
-  
-  /* Input fields */
- 
-  .search-input {
-    padding: 0.75rem;
-    font-size: 1rem;
-    border: none;
-    border-radius: 6px;
-    outline: none;
-    background-color: #333;
-    color: white;
-    width: 100%;
-  }
-  .locationDetails {
-    display: flex;
-    flex-direction: row;
-  }
-  .Arrow {
-    font-size: 2rem;
-  }
-  /* Individual form spacing */
-  form {
-    display: flex;
-    flex-direction: column;
-    gap: 3rem;
-  }
-  
-  /* Submit button */
-  .Search {
-    padding: 0.75rem 1.5rem;
-    font-size: 1rem;
-    background-color: #00ccff;
-    color: #000;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    font-weight: bold;
-    transition: background-color 0.3s ease;
-  }
-  
-  .Search:hover {
-    background-color: #00b2e0;
-  }
-  
+  height: 80vh;
+  width: 100vw;
+  background-color: #1c1c1c;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 80px; /* if you have a fixed navbar */
+  gap: 2rem;
+}
+
+/* Heading */
+.find-train-page h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+/* Form container */
+.train-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  width: 100%;
+  max-width: 400px;
+}
+
+/* From and To input on the same row */
+.locationDetails {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Arrow between From and To */
+.Arrow {
+  font-size: 1.5rem;
+  color: white;
+}
+
+/* Input fields */
+.search-input {
+  flex: 1;
+  padding: 0.75rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 6px;
+  outline: none;
+  background-color: #333;
+  color: white;
+}
+
+/* Submit button */
+.Search {
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  background-color: #00ccff;
+  color: #000;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.Search:hover {
+  background-color: #00b2e0;
+}
