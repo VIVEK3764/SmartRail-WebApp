@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import './findtrain.css'
-import '../Components/SearchForTrain';
+import { SearchByLocation, SearchByName, SearchByNumber } from '../components/SearchForTrain';
 function FindTrain() {
   
   const [searchMode , setSearchMode] = useState('')
