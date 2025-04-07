@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import './BookTickets.css'
-import {SearchByLocation , SearchByNumber , SearchByName} from '../Components/SearchForTrain';
+import './findtrain.css'
+import '../Components/SearchForTrain';
 function FindTrain() {
   
   const [searchMode , setSearchMode] = useState('')
@@ -12,7 +12,7 @@ function FindTrain() {
   
   return (
     <div className="find-train-page">
-        <h2>Search For Train</h2>
+        <h2>Search For Train</h2> 
         <div>
             <div className = "OptionBlock">
 
