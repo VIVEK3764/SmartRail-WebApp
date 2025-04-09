@@ -27,8 +27,10 @@ app.get('/', (req, res) => {
 });
 
 
-app.post('/search', async (req, res) => {
+app.post('/findtrain', async (req, res) => {
     const { From, To, Date } = req.body;
+    // const { Name, To, Date } = req.body;
+    // const { From, To, Date } = req.body;
   
     try {
       // Construct the query object

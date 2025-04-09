@@ -1,25 +1,39 @@
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import axios from "axios" 
 
 function SearchByLocation() {
   const navigate = useNavigate();
   const [from, setFrom] = useState("");
   const [to, setTo] = useState("");
+  const [date, setDate] = useState("");
 
   function SearchTrain(e) {
     e.preventDefault();
 
-    const locationDetails = {
-      from,
-      to
-    };
-
-    navigate("/traindetails", {
-      state: {
-        mode: "Location",
-        details: locationDetails
+    axios.post("http://localhost:5000/search", (req, res) => {
+      const { mode, details, date } = req.body;
+    
+      if (mode === "Location") {
+        const { from, to } = details;
+        
+      
+      } else if (mode === "Number") {
+        const trainNumber = details;
+        
+        
+      } else if (mode === "Name") {
+        const trainName = details;
+        
+        
+      } else {
+        return res.status(400).json({ error: "Invalid mode" });
       }
+    
+      // res.json({ results: /* your query result */ });
+
     });
+    
   }
 
   return (
@@ -44,9 +58,11 @@ function SearchByLocation() {
         </div>
         <div className="Date">
           <input
-            type="text"
+            type="date"
             placeholder="Enter Date (dd/mm/yy)"
             className="search-input"
+            value={date}
+            onChange={(e) => setDate(e.target.value)}
           />
         </div>
         <button type="submit" className="Search">
@@ -60,16 +76,34 @@ function SearchByLocation() {
 function SearchByNumber() {
   const navigate = useNavigate();
   const [number, setNumber] = useState("");
+  const [date, setDate] = useState("");
 
   function SearchTrain(e) {
     e.preventDefault();
 
-    navigate("/traindetails", {
-      state: {
-        mode: "Number",
-        details: number
+    axios.post("http://localhost:5000/search", (req, res) => {
+      const { mode, details, date } = req.body;
+    
+      if (mode === "Location") {
+        const { from, to } = details;
+        
+      
+      } else if (mode === "Number") {
+        const trainNumber = details;
+        
+        
+      } else if (mode === "Name") {
+        const trainName = details;
+        
+        
+      } else {
+        return res.status(400).json({ error: "Invalid mode" });
       }
+    
+      // res.json({ results: /* your query result */ });
+
     });
+    
   }
 
   return (
@@ -86,9 +120,11 @@ function SearchByNumber() {
         </div>
         <div className="Date">
           <input
-            type="text"
+            type="date"
             placeholder="Enter Date (dd/mm/yy)"
             className="search-input"
+            value={date}
+            onChange={(e) => setDate(e.target.value)}
           />
         </div>
         <button type="submit" className="Search">
@@ -102,16 +138,34 @@ function SearchByNumber() {
 function SearchByName() {
   const navigate = useNavigate();
   const [name, setName] = useState("");
+  const [date, setDate] = useState("");
 
   function SearchTrain(e) {
     e.preventDefault();
 
-    navigate("/traindetails", {
-      state: {
-        mode: "Name",
-        details: name
+    axios.post("http://localhost:5000/search", (req, res) => {
+      const { mode, details, date } = req.body;
+    
+      if (mode === "Location") {
+        const { from, to } = details;
+        
+      
+      } else if (mode === "Number") {
+        const trainNumber = details;
+        
+        
+      } else if (mode === "Name") {
+        const trainName = details;
+        
+        
+      } else {
+        return res.status(400).json({ error: "Invalid mode" });
       }
+    
+      // res.json({ results: /* your query result */ });
+
     });
+    
   }
 
   return (
@@ -128,9 +182,11 @@ function SearchByName() {
         </div>
         <div className="Date">
           <input
-            type="text"
+            type="date"
             placeholder="Enter Date (dd/mm/yy)"
             className="search-input"
+            value={date}
+            onChange={(e) => setDate(e.target.value)}
           />
         </div>
         <button type="submit" className="Search">
