@@ -13,6 +13,7 @@ function NavBar() {
         <li className = "nav-box"><Link to="/findtrain">Book Tickets</Link></li>
         <li className = "nav-box"><Link to ="/aboutus">Live Train Status</Link></li>
         <li className = "nav-box"><Link to ="/aboutus">About Us</Link></li>
+        <li className = "nav-box"><Link to ="/Signup">About Us</Link></li>
       </ul>
     </nav>
   );
