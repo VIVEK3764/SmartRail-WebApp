@@ -3,8 +3,10 @@ import './App.css';
 import Home from "./pages/Home";
 import FindTrain from "./pages/findtrain";
 import { Routes, Route, useLocation } from "react-router-dom";
-import NavBar from "./Components/NavBar";
+import NavBar from "./components/NavBar";
 import Trains from "./pages/DisplayTrain";
+
+import Signup from "./pages/Signup"
 
 function DisplayTrainWrapper() {
   const { state } = useLocation(); // Access state passed from navigate
@@ -18,6 +20,10 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/findtrain" element={<FindTrain />} />
+        
+        <Route path="/Signup" element={<Signup />} />
+
+        <Route path="/traindetails" element={<DisplayTrainWrapper />} />
         <Route path="/traindetails" element={<DisplayTrainWrapper />} />
       </Routes>
     </main>
