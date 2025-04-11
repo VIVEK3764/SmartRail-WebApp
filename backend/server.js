@@ -7,9 +7,11 @@ const cookieParser = require('cookie-parser');
 
 require('dotenv').config()
 
-const userRoute = require('./routes/user')
+const userRoute = require('./routes/auth')
 
 const findtrain = require('./routes/findtrain')
+
+// const authRoutes= require('./routes/auth')
 
 const app = express();
 const PORT = 5000;
@@ -28,12 +30,18 @@ mongoose.connect(process.env.MONGODB_URL)
 
 // Middleware
 app.use(cors());
+
+app.use(express.json());
+
 // app.use(cookieParser);
 app.use(bodyParser.json());
 
-app.use("/signup", userRoute)
+// app.use("/signup", userRoute)
+//
 
 app.use("/findtrain", findtrain)
+
+app.use("/auth", userRoute)
 
 // // Basic Route
 
