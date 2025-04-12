@@ -1,6 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import axios from "axios" 
+import axios from "axios"
+
+const API_BASE_URL = "http://localhost:5000";
 
 function SearchByLocation() {
   const navigate = useNavigate();
@@ -18,16 +20,16 @@ function SearchByLocation() {
     setLoading(true);
 
     try {
-      const response = await axios.post("http://localhost:5000/findtrain", {
+      const response = await axios.post(`${API_BASE_URL}/findtrain`, {
         searchType: "location",
         From: from,
         To: to,
         Date: date
       });
-      
-      if (response.data && response.data.length > 0) {
-        setTrains(response.data);
-        console.log("Found trains:", response.data);
+
+      if (response.data && response.data.data && response.data.data.length > 0) {
+        setTrains(response.data.data);
+        console.log("Found trains:", response.data.data);
       } else {
         setError("No trains found for the given route");
       }
@@ -83,9 +85,9 @@ function SearchByLocation() {
             {trains.map((train, index) => (
               <li key={index} className="train-item">
                 <div className="train-info">
-                  <span className="train-name">{train.name || train.number}</span>
-                  <span className="train-route">{train.from} → {train.to}</span>
-                  <span className="train-time">Departure: {new Date(train.date).toLocaleTimeString()}</span>
+                  <span className="train-name">{train.train_name || train.train_number}</span>
+                  <span className="train-route">{train.source_station_name} → {train.destination_station_name}</span>
+                  <span className="train-time">Departure: {train.departure_time}</span>
                 </div>
               </li>
             ))}
@@ -111,15 +113,15 @@ function SearchByNumber() {
     setLoading(true);
 
     try {
-      const response = await axios.post("http://localhost:5000/findtrain", {
+      const response = await axios.post(`${API_BASE_URL}/findtrain`, {
         searchType: "number",
-        From: number, // Using From field to search by train number
+        Number: number,
         Date: date
       });
-      
-      if (response.data && response.data.length > 0) {
-        setTrains(response.data);
-        console.log("Found trains:", response.data);
+
+      if (response.data && response.data.data && response.data.data.length > 0) {
+        setTrains(response.data.data);
+        console.log("Found trains:", response.data.data);
       } else {
         setError("No trains found with the given number");
       }
@@ -166,9 +168,9 @@ function SearchByNumber() {
             {trains.map((train, index) => (
               <li key={index} className="train-item">
                 <div className="train-info">
-                  <span className="train-name">{train.name || train.number}</span>
-                  <span className="train-route">{train.from} → {train.to}</span>
-                  <span className="train-time">Departure: {new Date(train.date).toLocaleTimeString()}</span>
+                  <span className="train-name">{train.train_name || train.train_number}</span>
+                  <span className="train-route">{train.source_station_name} → {train.destination_station_name}</span>
+                  <span className="train-time">Departure: {train.departure_time}</span>
                 </div>
               </li>
             ))}
@@ -194,15 +196,15 @@ function SearchByName() {
     setLoading(true);
 
     try {
-      const response = await axios.post("http://localhost:5000/findtrain", {
+      const response = await axios.post(`${API_BASE_URL}/findtrain`, {
         searchType: "name",
-        From: name, // Using From field to search by train name
+        Name: name,
         Date: date
       });
-      
-      if (response.data && response.data.length > 0) {
-        setTrains(response.data);
-        console.log("Found trains:", response.data);
+
+      if (response.data && response.data.data && response.data.data.length > 0) {
+        setTrains(response.data.data);
+        console.log("Found trains:", response.data.data);
       } else {
         setError("No trains found with the given name");
       }
@@ -249,9 +251,9 @@ function SearchByName() {
             {trains.map((train, index) => (
               <li key={index} className="train-item">
                 <div className="train-info">
-                  <span className="train-name">{train.name || train.number}</span>
-                  <span className="train-route">{train.from} → {train.to}</span>
-                  <span className="train-time">Departure: {new Date(train.date).toLocaleTimeString()}</span>
+                  <span className="train-name">{train.train_name || train.train_number}</span>
+                  <span className="train-route">{train.source_station_name} → {train.destination_station_name}</span>
+                  <span className="train-time">Departure: {train.departure_time}</span>
                 </div>
               </li>
             ))}
