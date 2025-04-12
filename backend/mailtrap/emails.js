@@ -1,7 +1,7 @@
 
 const { PASSWORD_RESET_REQUEST_TEMPLATE, PASSWORD_RESET_SUCCESS_TEMPLATE,	VERIFICATION_EMAIL_TEMPLATE  } = require("./emailTemplates");
 
-const { client, sender } =require("./mailtrap");
+const { client, sender } = require("./mailtrap");
 
 const sendVerificationEmail = async (email, verificationToken) => {
 	const recipient = [{ email }];

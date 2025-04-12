@@ -11,11 +11,8 @@ const cookieParser = require("cookie-parser");
 require('dotenv').config()
 
 const userRoute = require('./routes/auth')
-
 const findtrain = require('./routes/findtrain')
-
 // const authRoutes= require('./routes/auth')
-
 const app = express();
 const PORT = 5000;
 
@@ -46,7 +43,13 @@ try {
 //eeeede
 
 ///
-app.use(cors());
+
+// app.use(cors());
+
+app.use(cors({
+  origin: "http://localhost:5173", // ✅ Frontend origin
+  credentials: true                // ✅ Allow cookies/credentials
+}));
 
 app.use(express.json());
 
