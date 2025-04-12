@@ -1,0 +1,149 @@
+.booking-page {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.booking-container {
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.train-info {
+    background: #f8f9fa;
+    padding: 20px;
+    border-bottom: 1px solid #eee;
+}
+
+.train-info h2 {
+    margin: 0 0 15px 0;
+    color: #333;
+    font-size: 24px;
+}
+
+.journey-info {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.station-group,
+.date-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.station-group label,
+.date-group label {
+    font-size: 14px;
+    color: #666;
+}
+
+.station-group div,
+.date-group div {
+    font-size: 16px;
+    color: #333;
+    font-weight: 500;
+}
+
+.booking-form {
+    padding: 20px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: #333;
+}
+
+.form-input,
+.form-select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+    color: #333;
+    background-color: #fff;
+}
+
+.form-input:focus,
+.form-select:focus {
+    outline: none;
+    border-color: #2196F3;
+    box-shadow: 0 0 0 2px rgba(33, 150, 243, 0.1);
+}
+
+.form-select {
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 16px;
+    padding-right: 40px;
+}
+
+.book-ticket-btn {
+    width: 100%;
+    padding: 12px;
+    background-color: #2196F3;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.book-ticket-btn:hover:not(:disabled) {
+    background-color: #1976D2;
+}
+
+.book-ticket-btn:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+.error-alert,
+.success-alert {
+    margin-top: 20px;
+    padding: 12px;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.error-alert {
+    background-color: #ffebee;
+    color: #c62828;
+    border: 1px solid #ffcdd2;
+}
+
+.success-alert {
+    background-color: #e8f5e9;
+    color: #2e7d32;
+    border: 1px solid #c8e6c9;
+}
+
+@media (max-width: 600px) {
+    .booking-page {
+        padding: 10px;
+    }
+
+    .journey-info {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    .train-info h2 {
+        font-size: 20px;
+    }
+}

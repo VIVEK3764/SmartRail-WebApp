@@ -1,96 +1,212 @@
-const express = require('express');
-const mysql = require('mysql2');
-const cors = require('cors');
-require('dotenv').config();
+// const express = require('express');
+// const mysql = require('mysql2');
+// const cors = require('cors');
+// require('dotenv').config();
 
-const app = express();
-const port = process.env.PORT || 3000;
+// const app = express();
+// const port = process.env.PORT || 5000;
 
-// Middleware
-app.use(cors());
-app.use(express.json());
+// // CORS configuration
+// app.use(cors({
+//     origin: 'http://localhost:5173',
+//     methods: ['GET', 'POST'],
+//     credentials: true
+// }));
 
-// Database configuration
-const db = mysql.createConnection({
-    host: process.env.DB_HOST,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_NAME
-});
+// app.use(express.json());
 
-// Connect to MySQL
-db.connect((err) => {
-    if (err) {
-        console.error('Error connecting to MySQL:', err);
-        return;
-    }
-    console.log('Connected to MySQL database');
-});
+// // Database configuration
+// const db = mysql.createConnection({
+//     host: process.env.DB_HOST,
+//     user: process.env.DB_USER,
+//     password: process.env.DB_PASSWORD,
+//     database: process.env.DB_NAME
+// });
 
-// Search trains endpoint
-app.post('/search-trains', (req, res) => {
-    const { sourceStation, destinationStation, travelDate } = req.body;
+// // Connect to MySQL
+// db.connect((err) => {
+//     if (err) {
+//         console.error('Error connecting to MySQL:', err);
+//         return;
+//     }
+//     console.log('Connected to MySQL database');
+// });
 
-    if (!sourceStation || !destinationStation || !travelDate) {
-        return res.status(400).json({
-            success: false,
-            message: 'Missing required parameters: sourceStation, destinationStation, and travelDate are required'
-        });
-    }
+// // Search trains endpoint
+// app.post('/findtrain', (req, res) => {
+//     console.log('Received search request:', req.body);
+//     const { searchType, From, To, Date, Number, Name } = req.body;
 
-    // Call the stored procedure
-    const query = 'CALL search_train_by_station2(?, ?, ?)';
+//     if (!searchType) {
+//         return res.status(400).json({
+//             success: false,
+//             message: 'Search type is required'
+//         });
+//     }
 
-    db.query(query, [sourceStation, destinationStation, travelDate], (err, results) => {
-        if (err) {
-            console.error('Error executing stored procedure:', err);
-            return res.status(500).json({
-                success: false,
-                message: 'Error searching for trains',
-                error: err.message
-            });
-        }
+//     try {
+//         if (searchType === "location") {
+//             if (!From || !To || !Date) {
+//                 return res.status(400).json({
+//                     success: false,
+//                     message: 'Missing required parameters for location search'
+//                 });
+//             }
 
-        // The stored procedure returns results in the first element of the results array
-        const trains = results[0];
-        res.json({
-            success: true,
-            data: trains
-        });
-    });
-});
+//             // Call the stored procedure
+//             const query = 'CALL search_train_by_station2(?, ?, ?)';
+//             console.log('Executing stored procedure with params:', [From, To, Date]);
 
-// Get all stations endpoint
-app.get('/stations', (req, res) => {
-    const query = 'SELECT station_id, station_name FROM station ORDER BY station_name';
+//             db.query(query, [From, To, Date], (err, results) => {
+//                 if (err) {
+//                     console.error('Error executing stored procedure:', err);
+//                     return res.status(500).json({
+//                         success: false,
+//                         message: 'Error searching trains',
+//                         error: err.message
+//                     });
+//                 }
 
-    db.query(query, (err, results) => {
-        if (err) {
-            console.error('Error fetching stations:', err);
-            return res.status(500).json({
-                success: false,
-                message: 'Error fetching stations',
-                error: err.message
-            });
-        }
-        res.json({
-            success: true,
-            data: results
-        });
-    });
-});
+//                 // The stored procedure returns results in the first element of the results array
+//                 const trains = results[0];
+//                 console.log('Found trains:', trains);
 
-// Error handling middleware
-app.use((err, req, res, next) => {
-    console.error(err.stack);
-    res.status(500).json({
-        success: false,
-        message: 'Something went wrong!',
-        error: err.message
-    });
-});
+//                 res.json({
+//                     success: true,
+//                     data: trains.map(train => ({
+//                         train_number: train.train_number,
+//                         train_name: train.train_name,
+//                         source_station_name: train.source_name,
+//                         source_code: train.source_code,
+//                         destination_station_name: train.destination_name,
+//                         destination_code: train.destination_code,
+//                         departure_time: train.departure_time,
+//                         arrival_time: train.arrival_time,
+//                         distance: train.distance,
+//                         date: train.actual_travel_date
+//                     }))
+//                 });
+//             });
 
-// Start the server
-app.listen(port, () => {
-    console.log(`Train Search Server running at http://localhost:${port}`);
-}); 
+//         } else if (searchType === "number") {
+//             if (!Number || !Date) {
+//                 return res.status(400).json({
+//                     success: false,
+//                     message: 'Missing required parameters for number search'
+//                 });
+//             }
+
+//             // Call stored procedure with train number
+//             const query = 'CALL search_train_by_number(?, ?)';
+
+//             db.query(query, [Number, Date], (err, results) => {
+//                 if (err) {
+//                     console.error('Error executing stored procedure:', err);
+//                     return res.status(500).json({
+//                         success: false,
+//                         message: 'Error searching trains',
+//                         error: err.message
+//                     });
+//                 }
+
+//                 const trains = results[0];
+//                 res.json({
+//                     success: true,
+//                     data: trains.map(train => ({
+//                         train_number: train.train_number,
+//                         train_name: train.train_name,
+//                         source_station_name: train.source_name,
+//                         source_code: train.source_code,
+//                         destination_station_name: train.destination_name,
+//                         destination_code: train.destination_code,
+//                         departure_time: train.departure_time,
+//                         arrival_time: train.arrival_time,
+//                         distance: train.distance,
+//                         date: train.actual_travel_date
+//                     }))
+//                 });
+//             });
+
+//         } else if (searchType === "name") {
+//             if (!Name || !Date) {
+//                 return res.status(400).json({
+//                     success: false,
+//                     message: 'Missing required parameters for name search'
+//                 });
+//             }
+
+//             // Call stored procedure with train name
+//             const query = 'CALL search_train_by_name(?, ?)';
+
+//             db.query(query, [Name, Date], (err, results) => {
+//                 if (err) {
+//                     console.error('Error executing stored procedure:', err);
+//                     return res.status(500).json({
+//                         success: false,
+//                         message: 'Error searching trains',
+//                         error: err.message
+//                     });
+//                 }
+
+//                 const trains = results[0];
+//                 res.json({
+//                     success: true,
+//                     data: trains.map(train => ({
+//                         train_number: train.train_number,
+//                         train_name: train.train_name,
+//                         source_station_name: train.source_name,
+//                         source_code: train.source_code,
+//                         destination_station_name: train.destination_name,
+//                         destination_code: train.destination_code,
+//                         departure_time: train.departure_time,
+//                         arrival_time: train.arrival_time,
+//                         distance: train.distance,
+//                         date: train.actual_travel_date
+//                     }))
+//                 });
+//             });
+//         }
+//     } catch (err) {
+//         console.error('Server error:', err);
+//         res.status(500).json({
+//             success: false,
+//             message: 'Something went wrong',
+//             error: err.message
+//         });
+//     }
+// });
+
+// // Get all stations endpoint
+// app.get('/stations', (req, res) => {
+//     const query = 'CALL get_all_stations()';
+
+//     db.query(query, (err, results) => {
+//         if (err) {
+//             console.error('Error fetching stations:', err);
+//             return res.status(500).json({
+//                 success: false,
+//                 message: 'Error fetching stations',
+//                 error: err.message
+//             });
+//         }
+//         res.json({
+//             success: true,
+//             data: results[0]
+//         });
+//     });
+// });
+
+// // Error handling middleware
+// app.use((err, req, res, next) => {
+//     console.error(err.stack);
+//     res.status(500).json({
+//         success: false,
+//         message: 'Something went wrong!',
+//         error: err.message
+//     });
+// });
+
+// // Start the server
+// app.listen(port, () => {
+//     console.log(`Train Search Server running at http://localhost:${port}`);
+// }); 

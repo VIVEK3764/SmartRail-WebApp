@@ -3,24 +3,16 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const Route = require('./models/routes');
-// const cookieParser = require('cookie-parser');
-
 const cookieParser = require("cookie-parser");
+require('dotenv').config();
 
-
-require('dotenv').config()
-
-const userRoute = require('./routes/auth')
-
-const findtrain = require('./routes/findtrain')
-
-// const authRoutes= require('./routes/auth')
+const userRoute = require('./routes/auth');
+const findtrain = require('./routes/findtrain');
 
 const app = express();
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;
 
-
-// // Connect to MongoDB///
+// Connect to MongoDB
 mongoose.connect(process.env.MONGODB_URL)
   .then(() => console.log("MongoDB connected successfully"))
   .catch(err => {
@@ -30,52 +22,37 @@ mongoose.connect(process.env.MONGODB_URL)
     console.error("Or use MongoDB Atlas (cloud): https://www.mongodb.com/cloud/atlas/register");
   });
 
-
 // Middleware
-try {
-  app.use(cookieParser());
-} catch (err) {
-  console.error("Error using cookie-parser:", err);
-}
-
-//
-
-// ddeded
-//
-
-//eeeede
-
-///
-app.use(cors());
+app.use(cors({
+  origin: "http://localhost:5173",
+  credentials: true
+}));
 
 app.use(express.json());
-
-// app.use(cookieParser);
-
-
 app.use(bodyParser.json());
+app.use(cookieParser());
 
-// app.use("/signup", userRoute)
-//
+// Routes
+app.use("/findtrain", findtrain);
 
-app.use("/findtrain", findtrain)
+app.use("/auth", userRoute);
 
-app.use("/auth", userRoute)
-
-// // Basic Route
-
-// //server stores the data on client website using cookies
+// Test route
 app.get('/', (req, res) => {
-  // res.send("Server is up");
-  res.cookie("name", "harsh")
-  res.send("done")
+  res.cookie("name", "harsh");
+  res.send("Server is running");
 });
 
-app.get("/read", function (req, res) {
+app.get("/read", (req, res) => {
   console.log(req.cookies);
   res.send("read page");
-})
+});
 
+// Error handling middleware
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).json({ error: 'Something went wrong!' });
+});
 
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);

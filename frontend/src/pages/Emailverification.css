@@ -1,0 +1,42 @@
+.verify-container {
+    max-width: 400px;
+    margin: 60px auto;
+    padding: 30px;
+    background-color: #f5f5f5;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.verify-form input {
+    width: 100%;
+    padding: 12px;
+    margin: 12px 0;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 16px;
+    text-align: center;
+    letter-spacing: 3px;
+}
+
+.verify-form button {
+    width: 100%;
+    padding: 12px;
+    background-color: #28a745;
+    color: white;
+    font-weight: bold;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.verify-form button:hover {
+    background-color: #218838;
+}
+
+.verify-message {
+    margin-top: 15px;
+    font-size: 16px;
+    color: #333;
+}
